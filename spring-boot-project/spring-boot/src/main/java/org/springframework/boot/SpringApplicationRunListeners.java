@@ -27,6 +27,7 @@ import org.springframework.core.env.ConfigurableEnvironment;
 import org.springframework.util.ReflectionUtils;
 
 /**
+ * 运行监听器的集合
  * A collection of {@link SpringApplicationRunListener}.
  *
  * @author Phillip Webb
@@ -37,8 +38,7 @@ class SpringApplicationRunListeners {
 
 	private final List<SpringApplicationRunListener> listeners;
 
-	SpringApplicationRunListeners(Log log,
-			Collection<? extends SpringApplicationRunListener> listeners) {
+	SpringApplicationRunListeners(Log log, Collection<? extends SpringApplicationRunListener> listeners) {
 		this.log = log;
 		this.listeners = new ArrayList<>(listeners);
 	}

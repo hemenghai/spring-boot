@@ -32,6 +32,7 @@ import org.springframework.core.env.ConfigurableEnvironment;
 import org.springframework.util.ErrorHandler;
 
 /**
+ * 运行监听器: 监听事件发布
  * {@link SpringApplicationRunListener} to publish {@link SpringApplicationEvent}s.
  * <p>
  * Uses an internal {@link ApplicationEventMulticaster} for the events that are fired
