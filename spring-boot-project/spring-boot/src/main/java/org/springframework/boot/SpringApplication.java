@@ -377,7 +377,7 @@ public class SpringApplication {
 			ApplicationArguments applicationArguments = new DefaultApplicationArguments(args);
 			// 2 准备环境
 			ConfigurableEnvironment environment = prepareEnvironment(listeners, applicationArguments);
-			// 配置忽略的bean信息
+			// 配置忽略的bean信息策略，垃圾回收相关
 			configureIgnoreBeanInfo(environment);
 			// 对象化横幅
 			Banner printedBanner = printBanner(environment);
@@ -673,6 +673,11 @@ public class SpringApplication {
 		}
 	}
 
+	/**
+	 * 打印横幅, 并返回横幅实例
+	 * @param environment 环境
+	 * @return 横幅实例
+	 */
 	private Banner printBanner(ConfigurableEnvironment environment) {
 		if (this.bannerMode == Banner.Mode.OFF) {
 			return null;

@@ -30,6 +30,7 @@ import org.springframework.core.io.ResourceLoader;
 import org.springframework.util.StringUtils;
 
 /**
+ * 横幅打印器
  * Class used by {@link SpringApplication} to print the application banner.
  *
  * @author Phillip Webb
@@ -55,6 +56,13 @@ class SpringApplicationBannerPrinter {
 		this.fallbackBanner = fallbackBanner;
 	}
 
+	/**
+	 * 通过日志打印, 并返回打印后的横幅
+	 * @param environment 环境
+	 * @param sourceClass 源类
+	 * @param logger 日志器
+	 * @return 打印后的横幅
+	 */
 	public Banner print(Environment environment, Class<?> sourceClass, Log logger) {
 		Banner banner = getBanner(environment);
 		try {
@@ -66,12 +74,24 @@ class SpringApplicationBannerPrinter {
 		return new PrintedBanner(banner, sourceClass);
 	}
 
+	/**
+	 * 通过输出流打印, 并返回打印后的横幅
+	 * @param environment 环境
+	 * @param sourceClass 源类
+	 * @param out 输出流
+	 * @return 打印后的横幅
+	 */
 	public Banner print(Environment environment, Class<?> sourceClass, PrintStream out) {
 		Banner banner = getBanner(environment);
 		banner.printBanner(environment, sourceClass, out);
 		return new PrintedBanner(banner, sourceClass);
 	}
 
+	/**
+	 * 从环境中获得具体横幅
+	 * @param environment 环境
+	 * @return 要打印的横幅实例
+	 */
 	private Banner getBanner(Environment environment) {
 		Banners banners = new Banners();
 		banners.addIfNotNull(getImageBanner(environment));
@@ -85,9 +105,13 @@ class SpringApplicationBannerPrinter {
 		return DEFAULT_BANNER;
 	}
 
+	/**
+	 * 从环境中获得文本横幅
+	 * @param environment 环境
+	 * @return 要打印的横幅实例
+	 */
 	private Banner getTextBanner(Environment environment) {
-		String location = environment.getProperty(BANNER_LOCATION_PROPERTY,
-				DEFAULT_BANNER_LOCATION);
+		String location = environment.getProperty(BANNER_LOCATION_PROPERTY, DEFAULT_BANNER_LOCATION);
 		Resource resource = this.resourceLoader.getResource(location);
 		if (resource.exists()) {
 			return new ResourceBanner(resource);
@@ -95,6 +119,11 @@ class SpringApplicationBannerPrinter {
 		return null;
 	}
 
+	/**
+	 * 从环境中获得图片横幅
+	 * @param environment 环境
+	 * @return 要打印的横幅实例
+	 */
 	private Banner getImageBanner(Environment environment) {
 		String location = environment.getProperty(BANNER_IMAGE_LOCATION_PROPERTY);
 		if (StringUtils.hasLength(location)) {
@@ -110,8 +139,7 @@ class SpringApplicationBannerPrinter {
 		return null;
 	}
 
-	private String createStringFromBanner(Banner banner, Environment environment,
-			Class<?> mainApplicationClass) throws UnsupportedEncodingException {
+	private String createStringFromBanner(Banner banner, Environment environment, Class<?> mainApplicationClass) throws UnsupportedEncodingException {
 		ByteArrayOutputStream baos = new ByteArrayOutputStream();
 		banner.printBanner(environment, mainApplicationClass, new PrintStream(baos));
 		String charset = environment.getProperty("spring.banner.charset", "UTF-8");
