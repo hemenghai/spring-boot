@@ -82,8 +82,11 @@ class SpringApplicationBannerPrinter {
 	 * @return 打印后的横幅
 	 */
 	public Banner print(Environment environment, Class<?> sourceClass, PrintStream out) {
+		// 1. 通过环境选择横幅
 		Banner banner = getBanner(environment);
+		// 2. 打印横幅
 		banner.printBanner(environment, sourceClass, out);
+		// 3. 返回横幅bean
 		return new PrintedBanner(banner, sourceClass);
 	}
 
@@ -164,8 +167,7 @@ class SpringApplicationBannerPrinter {
 		}
 
 		@Override
-		public void printBanner(Environment environment, Class<?> sourceClass,
-				PrintStream out) {
+		public void printBanner(Environment environment, Class<?> sourceClass, PrintStream out) {
 			for (Banner banner : this.banners) {
 				banner.printBanner(environment, sourceClass, out);
 			}
@@ -189,8 +191,7 @@ class SpringApplicationBannerPrinter {
 		}
 
 		@Override
-		public void printBanner(Environment environment, Class<?> sourceClass,
-				PrintStream out) {
+		public void printBanner(Environment environment, Class<?> sourceClass, PrintStream out) {
 			sourceClass = (sourceClass != null) ? sourceClass : this.sourceClass;
 			this.banner.printBanner(environment, sourceClass, out);
 		}

@@ -21,6 +21,7 @@ import java.io.PrintStream;
 import org.springframework.core.env.Environment;
 
 /**
+ * 横幅接口
  * Interface class for writing a banner programmatically.
  *
  * @author Phillip Webb
@@ -32,14 +33,16 @@ import org.springframework.core.env.Environment;
 public interface Banner {
 
 	/**
+	 * 通过指定输出流打印横幅信息
 	 * Print the banner to the specified print stream.
-	 * @param environment the spring environment
-	 * @param sourceClass the source class for the application
-	 * @param out the output print stream
+	 * @param environment 环境 the spring environment
+	 * @param sourceClass 源类 the source class for the application
+	 * @param out 输出流 the output print stream
 	 */
 	void printBanner(Environment environment, Class<?> sourceClass, PrintStream out);
 
 	/**
+	 * 横幅打印模式
 	 * An enumeration of possible values for configuring the Banner.
 	 */
 	enum Mode {
